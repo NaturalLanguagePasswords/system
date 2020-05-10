@@ -62,9 +62,9 @@ if (DEBUG):
 
 for i in range(1, (2 * wordpairs) + 1):
   if (i % 2) == 1:
-    sql = "CREATE TEMPORARY TABLE t" + str(i) + " AS (SELECT word FROM wordlist WHERE adjective=1 ORDER BY nlp DESC, LENGTH(word)) LIMIT 1296"
+    sql = "CREATE TEMPORARY TABLE t" + str(i) + " AS (SELECT word FROM wordlist WHERE adjective=1 AND nlp=1 ORDER BY LENGTH(word), RAND()) LIMIT 1296"
   else:
-    sql = "CREATE TEMPORARY TABLE t" + str(i) + " AS (SELECT word FROM wordlist WHERE noun=1 ORDER BY nlp DESC, LENGTH(word)) LIMIT 7776"
+    sql = "CREATE TEMPORARY TABLE t" + str(i) + " AS (SELECT word FROM wordlist WHERE noun=1 ORDER BY nlp, LENGTH(word), RAND()) LIMIT 7776"
   if (DEBUG):
     print(sql)
   cursor.execute(sql)
