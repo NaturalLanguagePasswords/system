@@ -142,7 +142,7 @@ else:
   if (DEBUG):
     print ("Select words to form a password.") 
 
-  for n in range(1, 11):
+  for n in range(1, 6):
     password = ''
     # Repeatedly select words from the tables.
     for t in range(1, (2 * wordpairs) + 1):
