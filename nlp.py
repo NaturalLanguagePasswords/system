@@ -29,7 +29,7 @@ wordpairs = 2
 
 # Check command line arguments
 if len(sys.argv) == 1:
-  print( sys.argv[0] + " [1,2,3,4,adjectives,nouns]")
+  print( sys.argv[0] + " [1,2,3,4,adjectives,nouns,adjectives-csv,nouns-csv]")
   quit() 
 elif sys.argv[1] == '1':
   wordpairs = 1 
@@ -45,8 +45,14 @@ elif sys.argv[1] == 'adjectives':
 elif sys.argv[1] == 'nouns': 
   wordpairs = 1 
   list = 'nouns'
+elif sys.argv[1] == 'adjectives-csv': 
+  wordpairs = 1 
+  list = 'adjectives-csv'
+elif sys.argv[1] == 'nouns-csv': 
+  wordpairs = 1 
+  list = 'nouns-csv'
 else:
-  print( sys.argv[0] + " [1,2,3,4,adjectives,nouns]")
+  print( sys.argv[0] + " [1,2,3,4,adjectives,nouns,adjectives-csv,nouns-csv]")
   quit()
 
 # Open database connection
@@ -136,6 +142,21 @@ if (list == 'adjectives' or list == 'nouns'):
     print("%s " % roll + "%s" % row)
     row = cursor.fetchone()
     roll = rolls.fetchone()
+elif (list == 'adjectives-csv' or list == 'nouns-csv'):
+  if (list == 'adjectives-csv'):
+    if (DEBUG):
+      print("Printing CSV list of adjectives.\n")
+    sql = "SELECT word FROM t1 ORDER BY RAND() LIMIT 1296"
+  else:
+    if (DEBUG):
+      print("Printing CSV list of nouns.\n")
+    sql = "SELECT word FROM t2 ORDER BY RAND() LIMIT 7776"
+  cursor.execute(sql)
+  row = cursor.fetchone()
+
+  while row is not None:
+    print("\"%s\", " % row, end='')
+    row = cursor.fetchone()
 else:
   password = ''
 
